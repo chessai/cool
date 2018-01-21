@@ -124,9 +124,6 @@ sym iso = Iso (from iso) (to iso)
 -- Fix :: (* -> *) -> *
 newtype Fix f = Fix { unFix :: f (Fix f) }
 
---data Fix f where
---  unFix :: f (Fix f) -> Fix f
-
 fold :: (f (Fix f)) <=> Fix f
 fold = Iso Fix unFix
 
@@ -135,8 +132,8 @@ unfold = Iso unFix Fix
 
 -- If the recursive type is 1 + x, then we can create the initial
 -- value left () of type 1 + (1 + x), which leads to the value
--- of 1 + (1 + (1 + x))
-type Nat = Fix ((Either) ())
+-- of 1 + (1 + (1 + x)), which ... 
+type Nat = Fix (Either ())
 
 instance P.Show Nat where
   show f = show $ nat2Int f
